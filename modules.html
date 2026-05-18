@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Modules — Acadmay</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+body { padding-top: var(--nav-h); }
+.page-hero { padding: 80px 0 64px; }
+
+.modules-nav {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: var(--nav-h);
+  z-index: 100;
+}
+.modules-nav-inner {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+}
+.mod-tab {
+  padding: 14px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink-3);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: color 0.2s, border-color 0.2s;
+}
+.mod-tab:hover { color: var(--slate); }
+.mod-tab.active { color: var(--slate); border-bottom-color: var(--slate); }
+
+.module-section {
+  padding: 80px 0;
+  scroll-margin-top: calc(var(--nav-h) + 52px);
+}
+.module-section:nth-child(even) { background: var(--slate-bg); }
+
+.mod-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 48px;
+}
+.mod-icon-large {
+  width: 64px; height: 64px;
+  border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.mod-icon-large svg { width: 30px; height: 30px; }
+.mi-admin { background: rgba(59,91,116,0.1); color: var(--slate); }
+.mi-attend { background: rgba(45,138,94,0.1); color: var(--success); }
+.mi-finance { background: rgba(201,122,26,0.1); color: var(--warning); }
+.mi-saas { background: rgba(103,58,183,0.1); color: #6734b6; }
+
+.mod-header-text h2 {
+  font-family: var(--font-display);
+  font-size: clamp(24px,3.5vw,38px);
+  font-weight: 800;
+  letter-spacing: -1px;
+  color: var(--slate-deeper);
+  margin-bottom: 8px;
+}
+.mod-header-text p { font-size: 16px; color: var(--ink-3); max-width: 680px; line-height: 1.7; }
+
+.mod-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 20px;
+  margin-bottom: 48px;
+}
+.mod-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px;
+}
+.mc-num {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--ink-4);
+  margin-bottom: 10px;
+}
+.mod-card h4 { font-family: var(--font-display); font-size: 15px; font-weight: 700; color: var(--slate-deeper); margin-bottom: 8px; }
+.mod-card p { font-size: 13.5px; color: var(--ink-3); line-height: 1.65; }
+
+.mod-showcase {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+.ms-header {
+  background: var(--slate-deeper);
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.ms-dots { display: flex; gap: 6px; }
+.ms-dot { width: 10px; height: 10px; border-radius: 50%; }
+.ms-title { font-size: 12px; color: rgba(255,255,255,0.5); }
+.ms-body { padding: 24px; }
+
+/* Finance showcase */
+.fin-summary {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.fin-card {
+  background: var(--slate-bg);
+  border-radius: 8px;
+  padding: 14px;
+  text-align: center;
+}
+.fin-card .fn { font-family: var(--font-display); font-size: 20px; font-weight: 700; color: var(--slate-deeper); }
+.fin-card .fl { font-size: 11px; color: var(--ink-4); margin-top: 3px; }
+.fin-table-head {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink-4);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 8px 12px;
+  background: var(--slate-bg);
+  border-radius: 6px;
+  margin-bottom: 8px;
+}
+.fin-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  font-size: 13px;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border-light);
+  align-items: center;
+}
+.fin-row:last-child { border-bottom: none; }
+.fn-name { color: var(--ink-2); font-weight: 500; }
+.fn-amt { color: var(--ink-3); }
+.fn-status { font-size: 11px; font-weight: 600; }
+.fns-p { color: var(--success); }
+.fns-d { color: var(--warning); }
+.fns-o { color: #c0392b; }
+.fn-action { font-size: 11px; color: var(--slate); cursor: pointer; }
+
+/* SaaS showcase */
+.saas-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.saas-card {
+  background: var(--slate-bg);
+  border-radius: 10px;
+  padding: 16px;
+  border: 1px solid var(--border);
+}
+.sc-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.sc-name { font-weight: 600; font-size: 13px; color: var(--slate-deeper); }
+.sc-status { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 20px; }
+.scs-active { background: #eaf5ef; color: var(--success); }
+.scs-trial { background: #fef3e2; color: var(--warning); }
+.sc-meta { font-size: 11px; color: var(--ink-4); }
+.sc-bar { height: 4px; background: var(--border); border-radius: 2px; margin-top: 8px; overflow: hidden; }
+.sc-fill { height: 100%; background: var(--slate); border-radius: 2px; }
+
+@media (max-width: 900px) {
+  .mod-grid { grid-template-columns: 1fr 1fr; }
+  .fin-summary { grid-template-columns: 1fr 1fr; }
+  .saas-grid { grid-template-columns: 1fr; }
+  .fin-table-head, .fin-row { grid-template-columns: 2fr 1fr 1fr; }
+  .fin-table-head span:last-child, .fin-row span:last-child { display: none; }
+}
+@media (max-width: 600px) { .mod-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="logo"><span class="logo-mark">A</span><span class="logo-text">acadmay</span></a>
+    <div class="nav-links">
+      <a href="features.html">Features</a><a href="modules.html">Modules</a>
+      <a href="pricing.html">Pricing</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+    </div>
+    <div class="nav-actions">
+      <a href="login.html" class="btn-ghost">Sign in</a>
+      <a href="contact.html" class="btn-primary">Get Started</a>
+    </div>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="features.html">Features</a><a href="modules.html">Modules</a>
+    <a href="pricing.html">Pricing</a><a href="about.html">About</a>
+    <a href="contact.html">Contact</a><a href="login.html">Sign in</a>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="section-label">Platform modules</div>
+    <h1 class="section-title">Four deep modules.<br/>One unified platform.</h1>
+    <p>Each module is purpose-built for its domain — and designed to share data with every other module seamlessly.</p>
+  </div>
+</section>
+
+<div class="modules-nav">
+  <div class="modules-nav-inner">
+    <a href="#admin" class="mod-tab active">Administration</a>
+    <a href="#attendance" class="mod-tab">Attendance</a>
+    <a href="#finance" class="mod-tab">Finance</a>
+    <a href="#saas" class="mod-tab">SaaS Engine</a>
+    <a href="#academic" class="mod-tab">Academics</a>
+  </div>
+</div>
+
+<!-- ADMIN MODULE -->
+<section id="admin" class="module-section">
+  <div class="container">
+    <div class="mod-header">
+      <div class="mod-icon-large mi-admin">
+        <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      </div>
+      <div class="mod-header-text">
+        <h2>Administration &amp; Academic Control</h2>
+        <p>The command centre for school leadership. Manage every student, staff member, curriculum, and schedule from a single, unified board — with real-time data flowing throughout.</p>
+      </div>
+    </div>
+    <div class="mod-grid">
+      <div class="mod-card"><div class="mc-num">01</div><h4>Student lifecycle</h4><p>Digital admission registration, profile management, section assignment, and historical academic portfolio tracking.</p></div>
+      <div class="mod-card"><div class="mc-num">02</div><h4>Curriculum maps</h4><p>Academic heads define chapter timelines per subject and grade. Teachers log completion in real time.</p></div>
+      <div class="mod-card"><div class="mc-num">03</div><h4>Timetable builder</h4><p>Visual drag-and-drop timetable creation with automatic conflict detection for rooms, teachers, and periods.</p></div>
+      <div class="mod-card"><div class="mc-num">04</div><h4>Exam planner</h4><p>Schedule internal assessments, term exams, and board exams without clashes — with automated distribution.</p></div>
+      <div class="mod-card"><div class="mc-num">05</div><h4>Staff management</h4><p>Employee records, department mapping, designation history, and leave balance tracking.</p></div>
+      <div class="mod-card"><div class="mc-num">06</div><h4>Holiday calendar</h4><p>Centralised holiday planner with instant visibility for all stakeholders through their dashboards.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ATTENDANCE MODULE -->
+<section id="attendance" class="module-section">
+  <div class="container">
+    <div class="mod-header">
+      <div class="mod-icon-large mi-attend">
+        <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
+      </div>
+      <div class="mod-header-text">
+        <h2>Automated Attendance &amp; Check-In</h2>
+        <p>Replace paper registers with a touchless, QR-powered attendance network. Absence alerts fire automatically. Every check-in is logged, timestamped, and auditable.</p>
+      </div>
+    </div>
+    <div class="mod-grid">
+      <div class="mod-card"><div class="mc-num">01</div><h4>Dynamic QR tokens</h4><p>Each session generates a unique, time-sensitive token. Tokens expire and cannot be shared or replayed.</p></div>
+      <div class="mod-card"><div class="mc-num">02</div><h4>Smartphone scanning</h4><p>Any smartphone camera works as a check-in hub — no dedicated hardware required.</p></div>
+      <div class="mod-card"><div class="mc-num">03</div><h4>Instant absence alerts</h4><p>Automated notifications to parents and administrators the moment an expected student is marked absent.</p></div>
+      <div class="mod-card"><div class="mc-num">04</div><h4>Compliance dashboard</h4><p>Live attendance percentages by class, section, and individual student — with trend charts.</p></div>
+      <div class="mod-card"><div class="mc-num">05</div><h4>Staff check-in</h4><p>Separate attendance tracking for teaching and non-teaching staff with punch-in/out logs.</p></div>
+      <div class="mod-card"><div class="mc-num">06</div><h4>Attendance reports</h4><p>Daily, weekly, monthly, and term-wise reports exportable for regulatory compliance.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FINANCE MODULE -->
+<section id="finance" class="module-section">
+  <div class="container">
+    <div class="mod-header">
+      <div class="mod-icon-large mi-finance">
+        <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      </div>
+      <div class="mod-header-text">
+        <h2>Secure Financial Ledger Suite</h2>
+        <p>From custom invoice generation to offline payment verification — Acadmay's finance module is the most complete fee management system built for Indian schools.</p>
+      </div>
+    </div>
+    <div class="mod-grid">
+      <div class="mod-card"><div class="mc-num">01</div><h4>Custom invoicing</h4><p>Build fee structures by grade, section, transport zone, lab usage, and individual waivers.</p></div>
+      <div class="mod-card"><div class="mc-num">02</div><h4>Payment gateway</h4><p>Direct Razorpay / payment gateway integration for online fee collection with instant receipts.</p></div>
+      <div class="mod-card"><div class="mc-num">03</div><h4>Offline verification desk</h4><p>Cash and wire payments validated against reference slip IDs before ledger approval.</p></div>
+      <div class="mod-card"><div class="mc-num">04</div><h4>Scholarship tracking</h4><p>Personal fee waivers and scholarship discounts applied at the student level with audit trail.</p></div>
+      <div class="mod-card"><div class="mc-num">05</div><h4>Defaulter tracking</h4><p>Automated flagging of overdue accounts with escalation notifications to parents.</p></div>
+      <div class="mod-card"><div class="mc-num">06</div><h4>Financial reports</h4><p>Revenue dashboards, collection summaries, and outstanding fee reports for management.</p></div>
+    </div>
+    <div class="mod-showcase">
+      <div class="ms-header">
+        <div class="ms-dots"><div class="ms-dot" style="background:#ff5f56"></div><div class="ms-dot" style="background:#ffbd2e"></div><div class="ms-dot" style="background:#27c93f"></div></div>
+        <span class="ms-title">Finance Ledger — January 2025</span>
+      </div>
+      <div class="ms-body">
+        <div class="fin-summary">
+          <div class="fin-card"><div class="fn">₹12.4L</div><div class="fl">Total due</div></div>
+          <div class="fin-card"><div class="fn" style="color:var(--success)">₹9.7L</div><div class="fl">Collected</div></div>
+          <div class="fin-card"><div class="fn" style="color:var(--warning)">₹2.1L</div><div class="fl">Pending</div></div>
+          <div class="fin-card"><div class="fn" style="color:#c0392b">₹0.6L</div><div class="fl">Overdue</div></div>
+        </div>
+        <div class="fin-table-head"><span>Student</span><span>Amount</span><span>Status</span><span>Action</span></div>
+        <div class="fin-row"><span class="fn-name">Arjun Sharma</span><span class="fn-amt">₹10,100</span><span class="fn-status fns-p">Paid</span><span class="fn-action">Receipt ↗</span></div>
+        <div class="fin-row"><span class="fn-name">Priya Nair</span><span class="fn-amt">₹9,500</span><span class="fn-status fns-d">Partial</span><span class="fn-action">Remind</span></div>
+        <div class="fin-row"><span class="fn-name">Rahul Verma</span><span class="fn-amt">₹8,800</span><span class="fn-status fns-o">Overdue</span><span class="fn-action">Escalate</span></div>
+        <div class="fin-row"><span class="fn-name">Sunita Rao</span><span class="fn-amt">₹10,100</span><span class="fn-status fns-p">Paid</span><span class="fn-action">Receipt ↗</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SAAS ENGINE -->
+<section id="saas" class="module-section">
+  <div class="container">
+    <div class="mod-header">
+      <div class="mod-icon-large mi-saas">
+        <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      </div>
+      <div class="mod-header-text">
+        <h2>B2B Multi-Tenant SaaS Engine</h2>
+        <p>The platform-level control layer for Acadmay's developer and partner team. Onboard schools, manage contracts, monitor data weights, and structure billing — all from the global admin board.</p>
+      </div>
+    </div>
+    <div class="mod-grid">
+      <div class="mod-card"><div class="mc-num">01</div><h4>Subdomain isolation</h4><p>Each school gets a fully isolated tenant context at their own subdomain — no data leakage between clients.</p></div>
+      <div class="mod-card"><div class="mc-num">02</div><h4>School onboarding</h4><p>Instant school registration, subdomain provisioning, and initial data import workflow.</p></div>
+      <div class="mod-card"><div class="mc-num">03</div><h4>Contract management</h4><p>Service agreements, plan tier assignment, and renewal tracking per client.</p></div>
+      <div class="mod-card"><div class="mc-num">04</div><h4>Data telemetry</h4><p>Global storage consumption, API usage, and data weight monitoring across all tenants.</p></div>
+      <div class="mod-card"><div class="mc-num">05</div><h4>Developer billing</h4><p>Flexible billing variables per tenant — per-student, per-module, or flat-fee models.</p></div>
+      <div class="mod-card"><div class="mc-num">06</div><h4>Platform health</h4><p>System uptime, error rates, and performance metrics across the entire platform.</p></div>
+    </div>
+    <div class="mod-showcase">
+      <div class="ms-header">
+        <div class="ms-dots"><div class="ms-dot" style="background:#ff5f56"></div><div class="ms-dot" style="background:#ffbd2e"></div><div class="ms-dot" style="background:#27c93f"></div></div>
+        <span class="ms-title">SaaS Platform Overview</span>
+      </div>
+      <div class="ms-body">
+        <div class="saas-grid">
+          <div class="saas-card">
+            <div class="sc-header"><span class="sc-name">school-alpha.acadmay.in</span><span class="sc-status scs-active">Active</span></div>
+            <div class="sc-meta">1,248 students · Plan: Growth · ₹4,500/mo</div>
+            <div class="sc-bar"><div class="sc-fill" style="width:72%"></div></div>
+            <div class="sc-meta" style="margin-top:4px">Storage: 72% of 10 GB</div>
+          </div>
+          <div class="saas-card">
+            <div class="sc-header"><span class="sc-name">school-beta.acadmay.in</span><span class="sc-status scs-active">Active</span></div>
+            <div class="sc-meta">840 students · Plan: Starter · ₹2,800/mo</div>
+            <div class="sc-bar"><div class="sc-fill" style="width:45%"></div></div>
+            <div class="sc-meta" style="margin-top:4px">Storage: 45% of 5 GB</div>
+          </div>
+          <div class="saas-card">
+            <div class="sc-header"><span class="sc-name">school-gamma.acadmay.in</span><span class="sc-status scs-trial">Trial</span></div>
+            <div class="sc-meta">320 students · 14 days remaining</div>
+            <div class="sc-bar"><div class="sc-fill" style="width:18%"></div></div>
+            <div class="sc-meta" style="margin-top:4px">Storage: 18% of 2 GB</div>
+          </div>
+          <div class="saas-card" style="border:1.5px dashed var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;">
+            <div style="text-align:center;color:var(--ink-4);">
+              <div style="font-size:28px;margin-bottom:6px;">+</div>
+              <div style="font-size:13px;">Onboard new school</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACADEMICS MODULE -->
+<section id="academic" class="module-section">
+  <div class="container">
+    <div class="mod-header">
+      <div class="mod-icon-large" style="background:rgba(232,131,74,0.1);color:var(--accent);">
+        <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      </div>
+      <div class="mod-header-text">
+        <h2>Academic Assessment Centre</h2>
+        <p>End-to-end assessment management — from test scheduling to score entry to digital report cards. Give teachers the tools to evaluate effectively and students the visibility they need.</p>
+      </div>
+    </div>
+    <div class="mod-grid">
+      <div class="mod-card"><div class="mc-num">01</div><h4>Test management</h4><p>Schedule unit tests, mid-terms, and finals with assigned teachers and marking schemes.</p></div>
+      <div class="mod-card"><div class="mc-num">02</div><h4>Score entry</h4><p>Teacher-facing score entry panels with subject-wise marks and automatic total computation.</p></div>
+      <div class="mod-card"><div class="mc-num">03</div><h4>Grade computation</h4><p>Configurable grading scales (CBSE, ICSE, percentage, GPA) applied automatically per board.</p></div>
+      <div class="mod-card"><div class="mc-num">04</div><h4>Digital report cards</h4><p>Branded, printable report cards generated automatically from entered scores.</p></div>
+      <div class="mod-card"><div class="mc-num">05</div><h4>Performance analytics</h4><p>Subject-wise and class-wise performance trends to identify at-risk students early.</p></div>
+      <div class="mod-card"><div class="mc-num">06</div><h4>Parent visibility</h4><p>Real-time scorecard access for parents through their dedicated portal.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="container">
+    <div class="cta-inner">
+      <h2>Ready to deploy all four modules?</h2>
+      <p>Get a personalised demo showing how each module works for your specific institution type.</p>
+      <div class="cta-buttons">
+        <a href="contact.html" class="btn-white btn-lg">Book a demo</a>
+        <a href="pricing.html" class="btn-outline btn-lg" style="border-color:rgba(255,255,255,0.5);color:#fff;">View pricing</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><a href="index.html" class="logo"><span class="logo-mark">A</span><span class="logo-text">acadmay</span></a><p>Unified school ERP platform for modern educational institutions across India.</p></div>
+      <div class="footer-col"><h4>Platform</h4><a href="features.html">Features</a><a href="modules.html">Modules</a><a href="pricing.html">Pricing</a></div>
+      <div class="footer-col"><h4>Modules</h4><a href="modules.html#admin">Administration</a><a href="modules.html#attendance">Attendance</a><a href="modules.html#finance">Finance</a><a href="modules.html#academic">Academics</a></div>
+      <div class="footer-col"><h4>Company</h4><a href="about.html">About</a><a href="contact.html">Contact</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 Acadmay.</span><span>acadmay.in</span></div>
+  </div>
+</footer>
+
+<script src="shared.js"></script>
+<script>
+// Highlight active module tab on scroll
+const sections = document.querySelectorAll('.module-section');
+const tabs = document.querySelectorAll('.mod-tab');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      tabs.forEach(t => t.classList.remove('active'));
+      const active = document.querySelector('.mod-tab[href="#' + e.target.id + '"]');
+      if (active) active.classList.add('active');
+    }
+  });
+}, { threshold: 0.3 });
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

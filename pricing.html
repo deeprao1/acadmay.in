@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Pricing — Acadmay</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+body { padding-top: var(--nav-h); }
+.page-hero { padding: 80px 0 64px; }
+
+.pricing-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 48px;
+}
+.toggle-label { font-size: 14px; font-weight: 500; color: var(--ink-3); }
+.toggle-label.active { color: var(--slate-deeper); }
+.toggle {
+  position: relative;
+  width: 48px; height: 26px;
+  background: var(--slate);
+  border-radius: 13px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.toggle-thumb {
+  position: absolute;
+  top: 3px; left: 3px;
+  width: 20px; height: 20px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.2s;
+}
+.toggle.annual .toggle-thumb { transform: translateX(22px); }
+.save-badge {
+  background: rgba(45,138,94,0.12);
+  color: var(--success);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 20px;
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 24px;
+  margin-bottom: 80px;
+  align-items: start;
+}
+.price-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  position: relative;
+  transition: box-shadow 0.25s;
+}
+.price-card:hover { box-shadow: var(--shadow-lg); }
+.price-card.featured {
+  border: 2px solid var(--slate);
+  background: var(--slate-deeper);
+  color: #fff;
+}
+.featured-badge {
+  position: absolute;
+  top: -14px; left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 4px 14px;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+.plan-name {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--slate-light);
+  margin-bottom: 8px;
+}
+.featured .plan-name { color: rgba(255,255,255,0.6); }
+.plan-desc { font-size: 13.5px; color: var(--ink-3); margin-bottom: 24px; line-height: 1.6; }
+.featured .plan-desc { color: rgba(255,255,255,0.6); }
+.plan-price {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-bottom: 24px;
+}
+.price-currency { font-size: 20px; color: var(--ink-3); font-weight: 500; }
+.featured .price-currency { color: rgba(255,255,255,0.6); }
+.price-num {
+  font-family: var(--font-display);
+  font-size: 48px;
+  font-weight: 800;
+  letter-spacing: -2px;
+  color: var(--slate-deeper);
+  line-height: 1;
+}
+.featured .price-num { color: #fff; }
+.price-period { font-size: 13px; color: var(--ink-4); }
+.featured .price-period { color: rgba(255,255,255,0.5); }
+.plan-note { font-size: 12px; color: var(--ink-4); margin-bottom: 28px; }
+.featured .plan-note { color: rgba(255,255,255,0.4); }
+.plan-cta {
+  display: block;
+  text-align: center;
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s;
+  margin-bottom: 28px;
+}
+.cta-outline {
+  border: 1.5px solid var(--slate);
+  color: var(--slate);
+}
+.cta-outline:hover { background: var(--slate); color: #fff; }
+.cta-filled {
+  background: #fff;
+  color: var(--slate-deeper);
+}
+.cta-filled:hover { background: rgba(255,255,255,0.9); }
+.cta-plain {
+  border: 1.5px solid var(--border);
+  color: var(--ink-2);
+}
+.cta-plain:hover { border-color: var(--slate); color: var(--slate); }
+.plan-divider { height: 1px; background: var(--border-light); margin-bottom: 24px; }
+.featured .plan-divider { background: rgba(255,255,255,0.15); }
+.plan-features-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--ink-4);
+  margin-bottom: 14px;
+}
+.featured .plan-features-label { color: rgba(255,255,255,0.4); }
+.plan-feature {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 13.5px;
+  color: var(--ink-2);
+  padding: 6px 0;
+}
+.featured .plan-feature { color: rgba(255,255,255,0.85); }
+.plan-feature::before { content: '✓'; color: var(--success); font-weight: 700; flex-shrink: 0; }
+.featured .plan-feature::before { color: rgba(255,255,255,0.6); }
+.plan-feature.unavail { color: var(--ink-4); }
+.plan-feature.unavail::before { content: '—'; color: var(--ink-4); }
+
+/* Comparison table */
+.compare-section { padding: 80px 0; background: var(--slate-bg); }
+.compare-table { width: 100%; border-collapse: collapse; margin-top: 40px; }
+.compare-table th {
+  padding: 16px 20px;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--slate-deeper);
+  background: var(--white);
+  border-bottom: 2px solid var(--border);
+}
+.compare-table th:first-child { text-align: left; }
+.compare-table th.th-featured {
+  background: var(--slate-deeper);
+  color: #fff;
+}
+.compare-table td {
+  padding: 12px 20px;
+  font-size: 14px;
+  color: var(--ink-2);
+  border-bottom: 1px solid var(--border-light);
+  text-align: center;
+}
+.compare-table td:first-child { text-align: left; font-weight: 500; color: var(--ink-2); }
+.compare-table td.td-featured { background: rgba(59,91,116,0.04); }
+.compare-table tr:hover td { background: rgba(59,91,116,0.02); }
+.compare-table tr:hover td.td-featured { background: rgba(59,91,116,0.06); }
+.ct-yes { color: var(--success); font-weight: 600; font-size: 16px; }
+.ct-no { color: var(--ink-4); }
+.ct-add { color: var(--warning); font-size: 12px; font-weight: 600; }
+
+/* FAQ */
+.faq-section { padding: 80px 0; }
+.faq-grid { max-width: 720px; margin: 48px auto 0; }
+.faq-item { border-bottom: 1px solid var(--border); }
+.faq-q {
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 20px 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--slate-deeper);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.faq-q .faq-icon {
+  font-size: 20px;
+  color: var(--ink-4);
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+.faq-item.open .faq-icon { transform: rotate(45deg); }
+.faq-a {
+  display: none;
+  padding: 0 0 20px;
+  font-size: 15px;
+  color: var(--ink-3);
+  line-height: 1.75;
+}
+.faq-item.open .faq-a { display: block; }
+
+@media (max-width: 900px) {
+  .pricing-grid { grid-template-columns: 1fr; max-width: 480px; margin-left: auto; margin-right: auto; }
+  .compare-table { font-size: 13px; }
+  .compare-table th, .compare-table td { padding: 10px 12px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="logo"><span class="logo-mark">A</span><span class="logo-text">acadmay</span></a>
+    <div class="nav-links">
+      <a href="features.html">Features</a><a href="modules.html">Modules</a>
+      <a href="pricing.html">Pricing</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+    </div>
+    <div class="nav-actions">
+      <a href="login.html" class="btn-ghost">Sign in</a>
+      <a href="contact.html" class="btn-primary">Get Started</a>
+    </div>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="features.html">Features</a><a href="modules.html">Modules</a>
+    <a href="pricing.html">Pricing</a><a href="about.html">About</a>
+    <a href="contact.html">Contact</a><a href="login.html">Sign in</a>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="container" style="text-align:center;">
+    <div class="section-label">Pricing</div>
+    <h1 class="section-title" style="margin:0 auto 16px;">Simple, transparent pricing</h1>
+    <p style="margin:0 auto;">No per-user surprises. No hidden fees. Plans sized for every school.</p>
+  </div>
+</section>
+
+<section style="padding: 0 0 80px; background: linear-gradient(to bottom, var(--slate-deeper) 200px, var(--white) 200px);">
+  <div class="container">
+    <div class="pricing-toggle">
+      <span class="toggle-label active" id="lbl-monthly">Monthly</span>
+      <button class="toggle" id="billing-toggle" onclick="toggleBilling()"><span class="toggle-thumb"></span></button>
+      <span class="toggle-label" id="lbl-annual">Annual <span class="save-badge">Save 20%</span></span>
+    </div>
+
+    <div class="pricing-grid">
+      <!-- Starter -->
+      <div class="price-card">
+        <div class="plan-name">Starter</div>
+        <div class="plan-desc">For small schools and institutes getting started with digital management.</div>
+        <div class="plan-price">
+          <span class="price-currency">₹</span>
+          <span class="price-num" id="price-starter">1,999</span>
+          <span class="price-period">/mo</span>
+        </div>
+        <div class="plan-note">Up to 500 students · 5 GB storage</div>
+        <a href="contact.html" class="plan-cta cta-plain">Get started</a>
+        <div class="plan-divider"></div>
+        <div class="plan-features-label">What's included</div>
+        <div class="plan-feature">Student & staff management</div>
+        <div class="plan-feature">QR attendance system</div>
+        <div class="plan-feature">Basic fee management</div>
+        <div class="plan-feature">Exam scheduling</div>
+        <div class="plan-feature">Parent portal access</div>
+        <div class="plan-feature unavail">Custom subdomain</div>
+        <div class="plan-feature unavail">Payment gateway</div>
+        <div class="plan-feature unavail">Advanced analytics</div>
+        <div class="plan-feature unavail">Priority support</div>
+      </div>
+
+      <!-- Growth (featured) -->
+      <div class="price-card featured">
+        <div class="featured-badge">Most Popular</div>
+        <div class="plan-name">Growth</div>
+        <div class="plan-desc">For growing schools that need the full platform with payment integration.</div>
+        <div class="plan-price">
+          <span class="price-currency">₹</span>
+          <span class="price-num" id="price-growth">3,999</span>
+          <span class="price-period">/mo</span>
+        </div>
+        <div class="plan-note">Up to 1,500 students · 20 GB storage</div>
+        <a href="contact.html" class="plan-cta cta-filled">Get started</a>
+        <div class="plan-divider"></div>
+        <div class="plan-features-label">Everything in Starter, plus</div>
+        <div class="plan-feature">Custom subdomain</div>
+        <div class="plan-feature">Payment gateway (Razorpay)</div>
+        <div class="plan-feature">Advanced analytics dashboard</div>
+        <div class="plan-feature">Offline payment verification</div>
+        <div class="plan-feature">Transport billing module</div>
+        <div class="plan-feature">Curriculum tracker</div>
+        <div class="plan-feature">Priority email support</div>
+        <div class="plan-feature unavail">White-label branding</div>
+        <div class="plan-feature unavail">Dedicated onboarding</div>
+      </div>
+
+      <!-- Enterprise -->
+      <div class="price-card">
+        <div class="plan-name">Enterprise</div>
+        <div class="plan-desc">For large institutions and multi-campus groups with custom requirements.</div>
+        <div class="plan-price">
+          <span class="price-num" style="font-size:32px;letter-spacing:-1px;">Custom</span>
+        </div>
+        <div class="plan-note">Unlimited students · Custom storage</div>
+        <a href="contact.html" class="plan-cta cta-outline">Talk to sales</a>
+        <div class="plan-divider"></div>
+        <div class="plan-features-label">Everything in Growth, plus</div>
+        <div class="plan-feature">Unlimited students</div>
+        <div class="plan-feature">White-label branding</div>
+        <div class="plan-feature">Multi-campus support</div>
+        <div class="plan-feature">Dedicated onboarding manager</div>
+        <div class="plan-feature">Custom integrations</div>
+        <div class="plan-feature">SLA-backed uptime guarantee</div>
+        <div class="plan-feature">24/7 phone support</div>
+        <div class="plan-feature">Custom billing model</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON TABLE -->
+<section class="compare-section">
+  <div class="container">
+    <div class="section-label">Compare plans</div>
+    <h2 class="section-title">What's in each plan</h2>
+    <div style="overflow-x:auto;">
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th style="width:40%;">Feature</th>
+          <th>Starter</th>
+          <th class="th-featured">Growth</th>
+          <th>Enterprise</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Student limit</td><td>500</td><td class="td-featured">1,500</td><td>Unlimited</td></tr>
+        <tr><td>Storage</td><td>5 GB</td><td class="td-featured">20 GB</td><td>Custom</td></tr>
+        <tr><td>Student management</td><td class="ct-yes">✓</td><td class="td-featured ct-yes">✓</td><td class="ct-yes">✓</td></tr>
+        <tr><td>QR attendance</td><td class="ct-yes">✓</td><td class="td-featured ct-yes">✓</td><td class="ct-yes">✓</td></tr>
+        <tr><td>Fee management</td><td>Basic</td><td class="td-featured">Full</td><td>Full + Custom</td></tr>
+        <tr><td>Payment gateway</td><td class="ct-no">—</td><td class="td-featured ct-yes">✓</td><td class="ct-yes">✓</td></tr>
+        <tr><td>Custom subdomain</td><td class="ct-no">—</td><td class="td-featured ct-yes">✓</td><td class="ct-yes">✓</td></tr>
+        <tr><td>Analytics dashboard</td><td>Basic</td><td class="td-featured">Advanced</td><td>Custom</td></tr>
+        <tr><td>Curriculum tracker</td><td class="ct-no">—</td><td class="td-featured ct-yes">✓</td><td class="ct-yes">✓</td></tr>
+        <tr><td>Transport billing</td><td class="ct-no">—</td><td class="td-featured ct-yes">✓</td><td class="ct-yes">✓</td></tr>
+        <tr><td>White-label branding</td><td class="ct-no">—</td><td class="td-featured ct-no">—</td><td class="ct-yes">✓</td></tr>
+        <tr><td>Multi-campus</td><td class="ct-no">—</td><td class="td-featured ct-no">—</td><td class="ct-yes">✓</td></tr>
+        <tr><td>Support</td><td>Email</td><td class="td-featured">Priority email</td><td>24/7 phone</td></tr>
+        <tr><td>Onboarding</td><td>Self-serve</td><td class="td-featured">Guided</td><td>Dedicated manager</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="container">
+    <div style="text-align:center; margin-bottom:0;">
+      <div class="section-label">FAQ</div>
+      <h2 class="section-title">Common questions</h2>
+    </div>
+    <div class="faq-grid">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Is there a free trial? <span class="faq-icon">+</span></button>
+        <div class="faq-a">Yes — every new school gets a 14-day free trial of the Growth plan with no credit card required. You can migrate to any plan at the end of the trial.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">How does student count billing work? <span class="faq-icon">+</span></button>
+        <div class="faq-a">Billing is based on your active student count at the time of your monthly or annual renewal. If you're between tiers, you're always billed at the lower tier until you exceed it.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Can I switch plans mid-year? <span class="faq-icon">+</span></button>
+        <div class="faq-a">Yes. Upgrades take effect immediately and are prorated. Downgrades take effect at the next billing cycle.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Is my school's data isolated from other schools? <span class="faq-icon">+</span></button>
+        <div class="faq-a">Absolutely. Every school operates in a fully isolated tenant environment with its own subdomain. No data is shared or visible across institutions.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What payment methods do you accept? <span class="faq-icon">+</span></button>
+        <div class="faq-a">We accept all major credit/debit cards, UPI, net banking, and NEFT/RTGS for annual plans. Invoices are issued in INR.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Do you provide onboarding support? <span class="faq-icon">+</span></button>
+        <div class="faq-a">Starter plans include self-serve documentation and email support. Growth plans include a guided onboarding session. Enterprise clients get a dedicated onboarding manager.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="container">
+    <div class="cta-inner">
+      <h2>Not sure which plan fits?</h2>
+      <p>Talk to our team — we'll recommend the right plan based on your student count, modules needed, and budget.</p>
+      <div class="cta-buttons">
+        <a href="contact.html" class="btn-white btn-lg">Talk to sales</a>
+        <a href="contact.html" class="btn-outline btn-lg" style="border-color:rgba(255,255,255,0.5);color:#fff;">Book a demo</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><a href="index.html" class="logo"><span class="logo-mark">A</span><span class="logo-text">acadmay</span></a><p>Unified school ERP platform for modern educational institutions across India.</p></div>
+      <div class="footer-col"><h4>Platform</h4><a href="features.html">Features</a><a href="modules.html">Modules</a><a href="pricing.html">Pricing</a></div>
+      <div class="footer-col"><h4>Modules</h4><a href="modules.html#admin">Administration</a><a href="modules.html#attendance">Attendance</a><a href="modules.html#finance">Finance</a></div>
+      <div class="footer-col"><h4>Company</h4><a href="about.html">About</a><a href="contact.html">Contact</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 Acadmay.</span><span>acadmay.in</span></div>
+  </div>
+</footer>
+
+<script src="shared.js"></script>
+<script>
+let annual = false;
+const prices = { starter: [1999, 1599], growth: [3999, 3199] };
+function toggleBilling() {
+  annual = !annual;
+  const btn = document.getElementById('billing-toggle');
+  btn.classList.toggle('annual', annual);
+  document.getElementById('lbl-monthly').classList.toggle('active', !annual);
+  document.getElementById('lbl-annual').classList.toggle('active', annual);
+  document.getElementById('price-starter').textContent = prices.starter[annual?1:0].toLocaleString('en-IN');
+  document.getElementById('price-growth').textContent = prices.growth[annual?1:0].toLocaleString('en-IN');
+}
+function toggleFaq(btn) {
+  btn.parentElement.classList.toggle('open');
+}
+</script>
+</body>
+</html>

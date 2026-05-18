@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>About — Acadmay</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+body { padding-top: var(--nav-h); }
+.about-hero {
+  padding: 80px 0 64px;
+  background: linear-gradient(135deg, var(--slate-deeper) 0%, var(--slate) 100%);
+  color: #fff;
+}
+.about-hero .section-label { color: rgba(255,255,255,0.6); }
+.about-hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(36px,5vw,60px);
+  font-weight: 800;
+  letter-spacing: -2px;
+  line-height: 1.1;
+  margin-bottom: 20px;
+  max-width: 700px;
+}
+.about-hero p { font-size: 18px; color: rgba(255,255,255,0.75); max-width: 600px; line-height: 1.7; }
+
+.mission { padding: 80px 0; }
+.mission-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.mission-text h2 { font-family: var(--font-display); font-size: clamp(26px,3.5vw,40px); font-weight: 700; letter-spacing: -1px; color: var(--slate-deeper); margin-bottom: 16px; }
+.mission-text p { font-size: 16px; color: var(--ink-3); line-height: 1.8; margin-bottom: 16px; }
+.mission-visual {
+  background: var(--slate-deeper);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  color: #fff;
+}
+.mv-stat { margin-bottom: 28px; }
+.mv-stat:last-child { margin-bottom: 0; }
+.mv-num { font-family: var(--font-display); font-size: 48px; font-weight: 800; letter-spacing: -2px; color: #fff; line-height: 1; }
+.mv-accent { color: var(--accent-light); }
+.mv-lbl { font-size: 14px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+
+.values { padding: 80px 0; background: var(--slate-bg); }
+.values-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; margin-top: 48px; }
+.value-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+}
+.vc-num { font-family: var(--font-display); font-size: 40px; font-weight: 800; color: var(--slate-pale); letter-spacing: -2px; line-height: 1; margin-bottom: 16px; }
+.value-card h3 { font-family: var(--font-display); font-size: 18px; font-weight: 700; color: var(--slate-deeper); margin-bottom: 10px; }
+.value-card p { font-size: 14.5px; color: var(--ink-3); line-height: 1.7; }
+
+.pillars { padding: 80px 0; }
+.pillars-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 24px; margin-top: 48px; }
+.pillar-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  transition: box-shadow 0.25s;
+}
+.pillar-card:hover { box-shadow: var(--shadow); }
+.pillar-icon {
+  width: 48px; height: 48px;
+  border-radius: 12px;
+  background: var(--slate-pale);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--slate);
+  flex-shrink: 0;
+}
+.pillar-text h4 { font-family: var(--font-display); font-size: 16px; font-weight: 700; color: var(--slate-deeper); margin-bottom: 8px; }
+.pillar-text p { font-size: 14px; color: var(--ink-3); line-height: 1.65; }
+
+.story { padding: 80px 0; background: var(--slate-bg); }
+.story-text { max-width: 720px; margin: 0 auto; text-align: center; }
+.story-text h2 { font-family: var(--font-display); font-size: clamp(26px,3.5vw,40px); font-weight: 700; letter-spacing: -1px; color: var(--slate-deeper); margin-bottom: 24px; }
+.story-text p { font-size: 16px; color: var(--ink-3); line-height: 1.85; margin-bottom: 16px; }
+.story-quote {
+  background: var(--white);
+  border-left: 4px solid var(--slate);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 24px 28px;
+  margin: 32px 0;
+  text-align: left;
+  font-size: 17px;
+  font-style: italic;
+  color: var(--slate-deeper);
+  line-height: 1.7;
+}
+
+@media (max-width: 900px) {
+  .mission-grid { grid-template-columns: 1fr; }
+  .values-grid { grid-template-columns: 1fr 1fr; }
+  .pillars-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .values-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="logo"><span class="logo-mark">A</span><span class="logo-text">acadmay</span></a>
+    <div class="nav-links">
+      <a href="features.html">Features</a><a href="modules.html">Modules</a>
+      <a href="pricing.html">Pricing</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+    </div>
+    <div class="nav-actions">
+      <a href="login.html" class="btn-ghost">Sign in</a>
+      <a href="contact.html" class="btn-primary">Get Started</a>
+    </div>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="features.html">Features</a><a href="modules.html">Modules</a>
+    <a href="pricing.html">Pricing</a><a href="about.html">About</a>
+    <a href="contact.html">Contact</a><a href="login.html">Sign in</a>
+  </div>
+</nav>
+
+<section class="about-hero">
+  <div class="container">
+    <div class="section-label">About Acadmay</div>
+    <h1>Built for the realities of Indian education</h1>
+    <p>Acadmay was founded on a simple belief: that school administrators shouldn't have to spend half their day on paperwork, disconnected spreadsheets, and manual fee collection.</p>
+  </div>
+</section>
+
+<section class="mission">
+  <div class="container">
+    <div class="mission-grid">
+      <div class="mission-text">
+        <div class="section-label">Our mission</div>
+        <h2>Digitalise every school operation — without complexity</h2>
+        <p>We saw the gap between what school management software promised and what it actually delivered in practice. Most products were either too expensive, too complex, or built for a Western school system that doesn't match how Indian institutions operate.</p>
+        <p>Acadmay is different. It's designed ground-up for the Indian context — cash fee payments, regional boards, transport billing by zone, term-based academic calendars, and multi-stakeholder visibility that parents actually trust.</p>
+        <p>Our mission is to give every school — from a 200-student institute to a 2,000-student campus — the same operational quality that only the largest institutions could previously afford.</p>
+      </div>
+      <div class="mission-visual">
+        <div class="mv-stat">
+          <div class="mv-num"><span class="mv-accent">∞</span></div>
+          <div class="mv-lbl">Students supported across all plans</div>
+        </div>
+        <div class="mv-stat">
+          <div class="mv-num">4</div>
+          <div class="mv-lbl">Deep, integrated platform modules</div>
+        </div>
+        <div class="mv-stat">
+          <div class="mv-num"><span class="mv-accent">100</span>%</div>
+          <div class="mv-lbl">Cloud-native, zero on-prem setup</div>
+        </div>
+        <div class="mv-stat">
+          <div class="mv-num"><span class="mv-accent">1</span></div>
+          <div class="mv-lbl">Unified workspace for every role</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="values">
+  <div class="container">
+    <div class="section-label">What we believe</div>
+    <h2 class="section-title">Our core values</h2>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="vc-num">01</div>
+        <h3>Schools first</h3>
+        <p>Every product decision starts with one question: does this make a school administrator's or teacher's day meaningfully easier? If not, it doesn't ship.</p>
+      </div>
+      <div class="value-card">
+        <div class="vc-num">02</div>
+        <h3>Trust through transparency</h3>
+        <p>Parents and students deserve real visibility into their financial records, attendance, and academic progress — not just summaries provided at the school's convenience.</p>
+      </div>
+      <div class="value-card">
+        <div class="vc-num">03</div>
+        <h3>Built for India</h3>
+        <p>Offline payments, cash verification, regional board structures, Hindi/English interfaces — we design for how Indian schools actually work, not how Western ERP vendors assume they do.</p>
+      </div>
+      <div class="value-card">
+        <div class="vc-num">04</div>
+        <h3>Data security</h3>
+        <p>Student and financial data is sensitive. Multi-tenant isolation, encrypted storage, and audited access logs are non-negotiable — not optional enterprise add-ons.</p>
+      </div>
+      <div class="value-card">
+        <div class="vc-num">05</div>
+        <h3>Continuous improvement</h3>
+        <p>The platform evolves with every school we onboard. Features are driven by real operational feedback, not product roadmap theatre.</p>
+      </div>
+      <div class="value-card">
+        <div class="vc-num">06</div>
+        <h3>Accessible pricing</h3>
+        <p>Quality school management software shouldn't require an enterprise budget. Our pricing is designed to be reachable for schools at every stage of growth.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pillars">
+  <div class="container">
+    <div class="section-label">How we're built</div>
+    <h2 class="section-title">Architectural pillars</h2>
+    <div class="pillars-grid">
+      <div class="pillar-card">
+        <div class="pillar-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+        <div class="pillar-text"><h4>Unified data architecture</h4><p>All modules share one data layer — attendance feeds into the admin dashboard, fees connect to student profiles, and academic records flow to parent portals without any manual sync.</p></div>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+        <div class="pillar-text"><h4>True multi-tenancy</h4><p>Each school is fully isolated at the subdomain level. No school can ever see another school's data — technically enforced, not just a policy promise.</p></div>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+        <div class="pillar-text"><h4>Security by default</h4><p>Role-based access control, encrypted data at rest and in transit, and a full audit log on every financial transaction — built into the platform, not bolted on.</p></div>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+        <div class="pillar-text"><h4>Mobile-first access</h4><p>Every interface — from the admin dashboard to the parent portal — is fully responsive. No app download required; it works perfectly from any smartphone browser.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="story">
+  <div class="container">
+    <div class="story-text">
+      <div class="section-label">The story</div>
+      <h2>Why Acadmay exists</h2>
+      <p>School administration in India is still largely manual. Fee registers, paper attendance rolls, handwritten report cards, and phone calls to absent students — these aren't edge cases, they're the norm even in well-funded institutions.</p>
+      <div class="story-quote">
+        "The problem wasn't that good software didn't exist. It was that the software that existed wasn't built for how schools in India actually operate — the payment patterns, the board structures, the offline workflows."
+      </div>
+      <p>Acadmay was built to close that gap. Not by asking schools to change how they work, but by building software that meets them where they are — and systematically upgrades every manual process into a digital, auditable, real-time pipeline.</p>
+      <p>We're a platform that started from first principles: what does a school principal actually need to see every morning? What does a parent need to trust that their child's education is on track? What does a teacher need to spend less time on paperwork and more time teaching?</p>
+      <br/>
+      <a href="contact.html" class="btn-primary btn-lg">Join us on this mission →</a>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="container">
+    <div class="cta-inner">
+      <h2>Ready to transform your institution?</h2>
+      <p>Book a demo and see Acadmay built around your specific school.</p>
+      <div class="cta-buttons">
+        <a href="contact.html" class="btn-white btn-lg">Book a demo</a>
+        <a href="pricing.html" class="btn-outline btn-lg" style="border-color:rgba(255,255,255,0.5);color:#fff;">View pricing</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><a href="index.html" class="logo"><span class="logo-mark">A</span><span class="logo-text">acadmay</span></a><p>Unified school ERP platform for modern educational institutions across India.</p></div>
+      <div class="footer-col"><h4>Platform</h4><a href="features.html">Features</a><a href="modules.html">Modules</a><a href="pricing.html">Pricing</a></div>
+      <div class="footer-col"><h4>Modules</h4><a href="modules.html#admin">Administration</a><a href="modules.html#attendance">Attendance</a><a href="modules.html#finance">Finance</a></div>
+      <div class="footer-col"><h4>Company</h4><a href="about.html">About</a><a href="contact.html">Contact</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 Acadmay.</span><span>acadmay.in</span></div>
+  </div>
+</footer>
+
+<script src="shared.js"></script>
+</body>
+</html>

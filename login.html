@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sign In — Acadmay</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+body {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--white);
+}
+.login-left {
+  background: var(--slate-deeper);
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+.ll-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+.ll-glow {
+  position: absolute;
+  width: 400px; height: 400px;
+  background: rgba(59,91,116,0.5);
+  border-radius: 50%;
+  filter: blur(80px);
+  bottom: -100px; right: -100px;
+}
+.ll-content { position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column; }
+.ll-logo { margin-bottom: auto; }
+.ll-headline {
+  font-family: var(--font-display);
+  font-size: clamp(32px,3.5vw,48px);
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  color: #fff;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+.ll-headline span { color: var(--accent-light); }
+.ll-sub { font-size: 16px; color: rgba(255,255,255,0.6); line-height: 1.7; margin-bottom: 40px; }
+.ll-features { display: flex; flex-direction: column; gap: 12px; }
+.ll-feat {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  color: rgba(255,255,255,0.75);
+}
+.ll-feat-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--accent-light);
+  flex-shrink: 0;
+}
+
+.login-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px;
+  background: var(--white);
+}
+.login-box {
+  width: 100%;
+  max-width: 400px;
+}
+.login-box h1 {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.8px;
+  color: var(--slate-deeper);
+  margin-bottom: 6px;
+}
+.login-box .login-sub {
+  font-size: 14.5px;
+  color: var(--ink-3);
+  margin-bottom: 32px;
+}
+.login-sub a { color: var(--slate); text-decoration: none; font-weight: 500; }
+
+.role-selector {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 8px;
+  margin-bottom: 24px;
+}
+.role-btn {
+  padding: 10px 4px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: none;
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--ink-3);
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s;
+}
+.role-btn:hover { border-color: var(--slate); color: var(--slate); }
+.role-btn.active { background: var(--slate); color: #fff; border-color: var(--slate); }
+.role-btn span { display: block; font-size: 18px; margin-bottom: 3px; }
+
+.login-form .form-group { margin-bottom: 16px; }
+.login-form label { display: block; font-size: 13px; font-weight: 500; color: var(--ink-2); margin-bottom: 6px; }
+.login-form input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.login-form input:focus { border-color: var(--slate); box-shadow: 0 0 0 3px rgba(59,91,116,0.1); }
+.login-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  font-size: 13px;
+}
+.login-meta label { display: flex; align-items: center; gap: 7px; color: var(--ink-3); cursor: pointer; }
+.login-meta a { color: var(--slate); text-decoration: none; }
+.login-submit {
+  width: 100%;
+  padding: 13px;
+  background: var(--slate);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 15.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-bottom: 20px;
+}
+.login-submit:hover { background: var(--slate-dark); }
+
+.login-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  font-size: 13px;
+  color: var(--ink-4);
+}
+.login-divider::before, .login-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.subdomain-login {
+  width: 100%;
+  padding: 12px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: none;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--ink-2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: border-color 0.2s;
+}
+.subdomain-login:hover { border-color: var(--slate); }
+
+.login-footer { margin-top: 24px; text-align: center; font-size: 13px; color: var(--ink-4); }
+.login-footer a { color: var(--slate); text-decoration: none; }
+
+.subdomain-form { display: none; }
+.subdomain-form.show { display: block; }
+
+.subdomain-input-wrap {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  margin-bottom: 12px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.subdomain-input-wrap:focus-within { border-color: var(--slate); box-shadow: 0 0 0 3px rgba(59,91,116,0.1); }
+.subdomain-input-wrap input {
+  flex: 1;
+  padding: 12px 14px;
+  border: none;
+  outline: none;
+  font-family: var(--font-body);
+  font-size: 15px;
+}
+.subdomain-suffix {
+  padding: 12px 14px 12px 0;
+  font-size: 14px;
+  color: var(--ink-4);
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  body { grid-template-columns: 1fr; }
+  .login-left { display: none; }
+  .login-right { min-height: 100vh; }
+}
+</style>
+</head>
+<body>
+
+<div class="login-left">
+  <div class="ll-grid"></div>
+  <div class="ll-glow"></div>
+  <div class="ll-content">
+    <div class="ll-logo">
+      <a href="index.html" class="logo">
+        <span class="logo-mark">A</span>
+        <span class="logo-text" style="color:#fff;">acadmay</span>
+      </a>
+    </div>
+    <h2 class="ll-headline">Your school's<br/><span>command centre</span></h2>
+    <p class="ll-sub">Log in to access your institution's dashboard — attendance, finances, academics, and more.</p>
+    <div class="ll-features">
+      <div class="ll-feat"><span class="ll-feat-dot"></span>Real-time attendance tracking</div>
+      <div class="ll-feat"><span class="ll-feat-dot"></span>Complete fee management</div>
+      <div class="ll-feat"><span class="ll-feat-dot"></span>Academic performance dashboards</div>
+      <div class="ll-feat"><span class="ll-feat-dot"></span>Secure multi-tenant isolation</div>
+    </div>
+  </div>
+</div>
+
+<div class="login-right">
+  <div class="login-box">
+    <h1>Welcome back</h1>
+    <p class="login-sub">New to Acadmay? <a href="contact.html">Book a demo →</a></p>
+
+    <div class="role-selector">
+      <button class="role-btn active" onclick="selectRole(this)"><span>🏫</span>Admin</button>
+      <button class="role-btn" onclick="selectRole(this)"><span>📚</span>Teacher</button>
+      <button class="role-btn" onclick="selectRole(this)"><span>👨‍🎓</span>Student / Parent</button>
+    </div>
+
+    <div class="login-form">
+      <div class="form-group">
+        <label>Email address</label>
+        <input type="email" id="login-email" placeholder="you@yourschool.in" autocomplete="email"/>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="login-pass" placeholder="••••••••" autocomplete="current-password"/>
+      </div>
+      <div class="login-meta">
+        <label><input type="checkbox" /> Keep me signed in</label>
+        <a href="#">Forgot password?</a>
+      </div>
+      <button class="login-submit" onclick="handleLogin()">Sign in to dashboard</button>
+    </div>
+
+    <div class="login-divider">or sign in via your school domain</div>
+
+    <button class="subdomain-login" onclick="toggleSubdomain()" id="subdomain-btn">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      Continue with school subdomain
+    </button>
+
+    <div class="subdomain-form" id="subdomain-form">
+      <div style="margin-top:14px;">
+        <label style="font-size:13px;font-weight:500;color:var(--ink-2);display:block;margin-bottom:6px;">Your school's subdomain</label>
+        <div class="subdomain-input-wrap">
+          <input type="text" placeholder="yourschool" id="subdomain-input"/>
+          <span class="subdomain-suffix">.acadmay.in</span>
+        </div>
+        <button class="login-submit" onclick="goToSubdomain()">Continue →</button>
+      </div>
+    </div>
+
+    <div class="login-footer">
+      By signing in, you agree to our <a href="terms.html">Terms</a> and <a href="privacy.html">Privacy Policy</a>
+    </div>
+  </div>
+</div>
+
+<script>
+function selectRole(btn) {
+  document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+function handleLogin() {
+  const email = document.getElementById('login-email').value.trim();
+  const pass = document.getElementById('login-pass').value;
+  if (!email || !pass) { alert('Please enter your email and password.'); return; }
+  alert('Demo mode: In production, this would authenticate and redirect to your school dashboard at yourschool.acadmay.in');
+}
+function toggleSubdomain() {
+  const form = document.getElementById('subdomain-form');
+  form.classList.toggle('show');
+}
+function goToSubdomain() {
+  const sub = document.getElementById('subdomain-input').value.trim();
+  if (!sub) { alert('Please enter your school subdomain.'); return; }
+  alert('Demo mode: Would navigate to ' + sub + '.acadmay.in');
+}
+</script>
+</body>
+</html>

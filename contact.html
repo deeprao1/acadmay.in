@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Contact — Acadmay</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="shared.css"/>
+<style>
+body { padding-top: var(--nav-h); }
+.contact-layout {
+  padding: 80px 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+  max-width: 1140px;
+  margin: 0 auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+.contact-info h1 {
+  font-family: var(--font-display);
+  font-size: clamp(32px,5vw,52px);
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  color: var(--slate-deeper);
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+.contact-info > p { font-size: 17px; color: var(--ink-3); line-height: 1.7; margin-bottom: 40px; }
+
+.contact-channels { display: flex; flex-direction: column; gap: 16px; margin-bottom: 40px; }
+.channel-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  text-decoration: none;
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+.channel-card:hover { box-shadow: var(--shadow); border-color: rgba(59,91,116,0.3); }
+.channel-icon {
+  width: 44px; height: 44px;
+  border-radius: 10px;
+  background: var(--slate-pale);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--slate);
+  flex-shrink: 0;
+}
+.channel-text strong { display: block; font-size: 14px; font-weight: 600; color: var(--slate-deeper); margin-bottom: 2px; }
+.channel-text span { font-size: 13px; color: var(--ink-3); }
+
+.demo-options {
+  background: var(--slate-bg);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  border: 1px solid var(--border);
+}
+.demo-options h3 { font-family: var(--font-display); font-size: 16px; font-weight: 700; color: var(--slate-deeper); margin-bottom: 14px; }
+.demo-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-light);
+  font-size: 14px;
+  color: var(--ink-2);
+}
+.demo-option:last-child { border-bottom: none; }
+.demo-option::before { content: '→'; color: var(--slate); font-weight: 600; }
+
+/* Form */
+.contact-form-wrap {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  box-shadow: var(--shadow-lg);
+}
+.contact-form-wrap h2 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--slate-deeper);
+  margin-bottom: 8px;
+}
+.contact-form-wrap > p { font-size: 14px; color: var(--ink-3); margin-bottom: 28px; }
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-group { margin-bottom: 18px; }
+.form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-2);
+  margin-bottom: 6px;
+}
+.form-group label span { color: #c0392b; }
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  color: var(--ink);
+  background: var(--white);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--slate);
+  box-shadow: 0 0 0 3px rgba(59,91,116,0.1);
+}
+.form-group textarea { resize: vertical; min-height: 110px; }
+.form-submit {
+  width: 100%;
+  padding: 14px;
+  background: var(--slate);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+.form-submit:hover { background: var(--slate-dark); transform: translateY(-1px); }
+
+.form-success {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+}
+.success-icon {
+  width: 64px; height: 64px;
+  background: #eaf5ef;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 20px;
+  font-size: 28px;
+}
+.form-success h3 { font-family: var(--font-display); font-size: 22px; font-weight: 700; color: var(--slate-deeper); margin-bottom: 8px; }
+.form-success p { font-size: 15px; color: var(--ink-3); }
+
+/* Map-like visual */
+.map-placeholder {
+  background: var(--slate-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.map-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(59,91,116,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59,91,116,0.05) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+.map-pin {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+.map-pin-icon {
+  width: 48px; height: 48px;
+  background: var(--slate);
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  margin: 0 auto 8px;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 16px rgba(59,91,116,0.3);
+}
+.map-pin-icon svg { transform: rotate(45deg); }
+.map-pin-label { font-size: 13px; font-weight: 600; color: var(--slate-deeper); }
+.map-pin-sub { font-size: 11px; color: var(--ink-4); }
+
+@media (max-width: 900px) {
+  .contact-layout { grid-template-columns: 1fr; gap: 40px; }
+  .form-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="logo"><span class="logo-mark">A</span><span class="logo-text">acadmay</span></a>
+    <div class="nav-links">
+      <a href="features.html">Features</a><a href="modules.html">Modules</a>
+      <a href="pricing.html">Pricing</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+    </div>
+    <div class="nav-actions">
+      <a href="login.html" class="btn-ghost">Sign in</a>
+      <a href="contact.html" class="btn-primary">Get Started</a>
+    </div>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="features.html">Features</a><a href="modules.html">Modules</a>
+    <a href="pricing.html">Pricing</a><a href="about.html">About</a>
+    <a href="contact.html">Contact</a><a href="login.html">Sign in</a>
+  </div>
+</nav>
+
+<div class="contact-layout">
+  <div class="contact-info">
+    <div class="section-label">Get in touch</div>
+    <h1>Let's get your school on Acadmay</h1>
+    <p>Whether you're ready to sign up, want a demo, or just have questions — our team is ready to help. We typically respond within a few hours.</p>
+
+    <div class="contact-channels">
+      <a href="mailto:hello@acadmay.in" class="channel-card">
+        <div class="channel-icon">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <div class="channel-text">
+          <strong>Email us</strong>
+          <span>hello@acadmay.in — usually respond within 4 hours</span>
+        </div>
+      </a>
+      <a href="tel:+919999999999" class="channel-card">
+        <div class="channel-icon">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.5 19.79 19.79 0 0 1 1.61 4.9 2 2 0 0 1 3.6 2.69h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 10a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 17.5v-.58z"/></svg>
+        </div>
+        <div class="channel-text">
+          <strong>Call us</strong>
+          <span>Mon–Sat, 9 AM – 7 PM IST</span>
+        </div>
+      </a>
+      <div class="channel-card" style="cursor:default;">
+        <div class="channel-icon">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div class="channel-text">
+          <strong>Headquartered in India</strong>
+          <span>Serving schools across all states</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-options">
+      <h3>What happens in a demo?</h3>
+      <div class="demo-option">Live walkthrough of all four modules</div>
+      <div class="demo-option">Configuration specific to your school type</div>
+      <div class="demo-option">Q&A with our product team</div>
+      <div class="demo-option">Pricing recommendation for your institution</div>
+      <div class="demo-option">Trial setup if you're ready to proceed</div>
+    </div>
+
+    <div class="map-placeholder">
+      <div class="map-grid"></div>
+      <div class="map-pin">
+        <div class="map-pin-icon">
+          <svg width="20" height="20" fill="none" stroke="#fff" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div class="map-pin-label">acadmay.in</div>
+        <div class="map-pin-sub">India</div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="contact-form-wrap">
+      <h2>Book a demo or get in touch</h2>
+      <p>Fill in your details and we'll be in touch within one business day.</p>
+
+      <div id="contact-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label>First name <span>*</span></label>
+            <input type="text" id="fname" placeholder="Ravi"/>
+          </div>
+          <div class="form-group">
+            <label>Last name <span>*</span></label>
+            <input type="text" id="lname" placeholder="Sharma"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>School / Institute name <span>*</span></label>
+          <input type="text" id="school" placeholder="Delhi Public School, Sector 12"/>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Work email <span>*</span></label>
+            <input type="email" id="email" placeholder="ravi@yourschool.in"/>
+          </div>
+          <div class="form-group">
+            <label>Phone number</label>
+            <input type="tel" id="phone" placeholder="+91 98765 43210"/>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Student count (approx.)</label>
+            <select id="student-count">
+              <option value="">Select range</option>
+              <option>Under 200</option>
+              <option>200 – 500</option>
+              <option>500 – 1,000</option>
+              <option>1,000 – 2,000</option>
+              <option>Over 2,000</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>I'm interested in</label>
+            <select id="intent">
+              <option value="">Select...</option>
+              <option>Booking a demo</option>
+              <option>Starting a free trial</option>
+              <option>Getting a quote</option>
+              <option>General enquiry</option>
+              <option>Partnership / reseller</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Message (optional)</label>
+          <textarea id="message" placeholder="Tell us about your school and any specific requirements..."></textarea>
+        </div>
+        <button class="form-submit" onclick="submitForm()">Send message →</button>
+      </div>
+
+      <div class="form-success" id="form-success">
+        <div class="success-icon">✓</div>
+        <h3>Message sent!</h3>
+        <p>Thanks for reaching out. Our team will get back to you at your email address within one business day.</p>
+        <br/>
+        <a href="index.html" class="btn-primary">Back to home</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><a href="index.html" class="logo"><span class="logo-mark">A</span><span class="logo-text">acadmay</span></a><p>Unified school ERP platform for modern educational institutions across India.</p></div>
+      <div class="footer-col"><h4>Platform</h4><a href="features.html">Features</a><a href="modules.html">Modules</a><a href="pricing.html">Pricing</a></div>
+      <div class="footer-col"><h4>Modules</h4><a href="modules.html#admin">Administration</a><a href="modules.html#attendance">Attendance</a><a href="modules.html#finance">Finance</a></div>
+      <div class="footer-col"><h4>Company</h4><a href="about.html">About</a><a href="contact.html">Contact</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 Acadmay.</span><span>acadmay.in</span></div>
+  </div>
+</footer>
+
+<script src="shared.js"></script>
+<script>
+function submitForm() {
+  const fname = document.getElementById('fname').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const school = document.getElementById('school').value.trim();
+  if (!fname || !email || !school) {
+    alert('Please fill in your name, school name, and email address.');
+    return;
+  }
+  document.getElementById('contact-form').style.display = 'none';
+  document.getElementById('form-success').style.display = 'block';
+}
+</script>
+</body>
+</html>

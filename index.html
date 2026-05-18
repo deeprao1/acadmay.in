@@ -7,8 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400;1,9..40,500&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="shared.css?v=4"/>
-<link rel="stylesheet" href="index.css?v=4"/>
+<link rel="stylesheet" href="shared.css?v=5"/>
+<link rel="stylesheet" href="index.css?v=5"/>
 </head>
 <body>
 
@@ -53,32 +53,35 @@
   <div class="hero-glow-1"></div>
   <div class="hero-glow-2"></div>
   
-  <div class="container hero-content">
-    <div class="hero-badge">
-      <span class="badge-dot"></span>
-      Mapping Education Across Rajasthan
+  <div class="container hero-container">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        Mapping Education Across Rajasthan
+      </div>
+      <h1 class="hero-title">
+        Discover the future of<br/>
+        <span class="title-accent">Digital Learning Hubs</span>
+      </h1>
+      <p class="hero-sub">The massive, fully responsive educational directory platform spanning Jaipur, Jodhpur, Kota, Udaipur, Ajmer, Alwar, Sikar, and Bikaner.</p>
+      
+      <!-- INTERACTIVE SEARCH HUB -->
+      <div class="search-hub">
+        <input type="text" class="search-input" placeholder="Search schools..."/>
+        <select aria-label="Select City">
+          <option value="">All Cities</option>
+          <option value="jaipur">Jaipur</option>
+          <option value="jodhpur">Jodhpur</option>
+          <option value="kota">Kota</option>
+          <option value="udaipur">Udaipur</option>
+          <option value="ajmer">Ajmer</option>
+        </select>
+        <button class="search-btn">Explore</button>
+      </div>
     </div>
-    <h1 class="hero-title">
-      Discover the future of<br/>
-      <span class="title-accent">Digital Learning Hubs</span>
-    </h1>
-    <p class="hero-sub">The massive, fully responsive educational directory platform spanning Jaipur, Jodhpur, Kota, Udaipur, Ajmer, Alwar, Sikar, and Bikaner.</p>
     
-    <!-- INTERACTIVE SEARCH HUB -->
-    <div class="search-hub">
-      <input type="text" class="search-input" placeholder="Search schools, digital batches, or resources..."/>
-      <select aria-label="Select City">
-        <option value="">All Rajasthan Cities</option>
-        <option value="jaipur">Jaipur</option>
-        <option value="jodhpur">Jodhpur</option>
-        <option value="kota">Kota</option>
-        <option value="udaipur">Udaipur</option>
-        <option value="ajmer">Ajmer</option>
-        <option value="alwar">Alwar</option>
-        <option value="sikar">Sikar</option>
-        <option value="bikaner">Bikaner</option>
-      </select>
-      <button class="search-btn">Explore Directory</button>
+    <div class="hero-image-col antigravity-layer">
+      <img src="acadmay_hero_right.png" alt="Platform Dashboard" />
     </div>
   </div>
 </section>

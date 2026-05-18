@@ -340,3 +340,17 @@
   .features-wrapper { flex-direction: column; }
   .cta-actions { flex-direction: column; }
 }
+/* LEARNING PATHWAYS */
+.learning-pathways { padding: 100px 0 60px; }
+.pathways-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; }
+.pathway-card { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 24px; text-align: center; text-decoration: none; border-radius: 20px; }
+.p-icon { font-size: 40px; margin-bottom: 20px; }
+.pathway-card h3 { color: var(--text-main); font-family: var(--font-display); font-size: 20px; margin-bottom: 8px; }
+.pathway-card p { color: var(--accent-orange); font-size: 14px; font-weight: 600; }
+
+/* FAQ */
+.platform-faq { padding: 60px 0 100px; }
+.faq-list { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+.faq-item { padding: 32px; border-radius: 20px; }
+.faq-item h4 { font-family: var(--font-display); font-size: 20px; color: var(--text-main); margin-bottom: 16px; }
+.faq-item p { color: var(--text-muted); font-size: 16px; line-height: 1.6; }

@@ -20,7 +20,7 @@
   /* Legacy Variable Remapping (Brings all other sub-pages into Dark Mode instantly) */
   --slate: #F97316; 
   --slate-dark: #ea580c;
-  --slate-deeper: #F8FAFC; /* Map to high-contrast white text instead of dark background */
+  --slate-deeper: #0B0A1A; /* Map back to Midnight Indigo for dark background gradients & cards */
   --slate-light: #6366F1; 
   --slate-pale: rgba(255, 255, 255, 0.05);
   --slate-bg: #05040d; 
@@ -307,6 +307,34 @@ body {
               0 20px 40px rgba(249, 115, 22, 0.15) !important;
 }
 
+/* Featured Price Card Overrides */
+.price-card.featured {
+  background: rgba(249, 115, 22, 0.08) !important;
+  border: 2px solid var(--accent-orange) !important;
+  box-shadow: 0 15px 45px rgba(249, 115, 22, 0.15) !important;
+}
+
+.price-card.featured .plan-name {
+  color: var(--accent-orange) !important;
+}
+
+.price-card.featured * {
+  color: var(--text-main) !important;
+}
+
+.price-card.featured .plan-desc {
+  color: var(--text-muted) !important;
+}
+
+.price-card.featured .plan-cta {
+  background: var(--accent-orange) !important;
+  color: #fff !important;
+}
+
+.price-card.featured .plan-cta:hover {
+  background: #ff8533 !important;
+}
+
 .compare-section, .story, .values {
   background: var(--bg-deep) !important;
 }
@@ -329,6 +357,12 @@ body {
 .faq-q {
   color: var(--text-main) !important;
 }
+
+/* Global Heading Visibility Overrides */
+h1, h2, h3, h4, h5, h6, .section-title, .faq-q, .plan-name, .price-num {
+  color: var(--text-main) !important;
+}
+
 /* Hero & Section Background Overrides */
 .page-hero, .about-hero {
   background: linear-gradient(135deg, #0B0A1A 0%, #0F172A 100%) !important;

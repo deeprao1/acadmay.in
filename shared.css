@@ -20,7 +20,7 @@
   /* Legacy Variable Remapping (Brings all other sub-pages into Dark Mode instantly) */
   --slate: #F97316; 
   --slate-dark: #ea580c;
-  --slate-deeper: #0B0A1A; 
+  --slate-deeper: #F8FAFC; /* Map to high-contrast white text instead of dark background */
   --slate-light: #6366F1; 
   --slate-pale: rgba(255, 255, 255, 0.05);
   --slate-bg: #05040d; 
@@ -328,4 +328,18 @@ body {
 
 .faq-q {
   color: var(--text-main) !important;
+}
+/* Hero & Section Background Overrides */
+.page-hero, .about-hero {
+  background: linear-gradient(135deg, #0B0A1A 0%, #0F172A 100%) !important;
+  color: var(--text-main) !important;
+}
+
+.about-hero h1 {
+  color: var(--text-main) !important;
+}
+
+/* Sub-page Body Reset */
+body {
+  background-color: #0B0A1A !important;
 }
